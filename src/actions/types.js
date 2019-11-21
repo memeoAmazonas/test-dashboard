@@ -1,1 +1,12 @@
-export const DUMMY = 'dummy';
+export const FETCH_PHOTO = 'fetch_photo_list';
+export const FETCH_PHOTO_FAIL = 'fetch_photo_fail';
+export const FETCH_PHOTO_SUCCESS = 'fetch_photo_success';
+export const FETCH_PHOTO_LIST = 'fetch_photo_list';
+export const FETCH_PHOTO_LIST_FAIL = 'fetch_photo_list_fail';
+export const FETCH_PHOTO_LIST_SUCCESS = 'fetch_photo_list_success';
+export const FETCH_PHOTO_LIST_DETAILS = 'fetch_photo_list_details';
+export const FETCH_PHOTO_LIST_FAIL_DETAILS = 'fetch_photo_list_fail_details';
+export const FETCH_PHOTO_LIST_SUCCESS_DETAILS = 'fetch_photo_list_success_details';
+export const FETCH_PHOTO_DETAILS = 'fetch_photo_list_details';
+export const FETCH_PHOTO_FAIL_DETAILS = 'fetch_photo_fail_details';
+export const FETCH_PHOTO_SUCCESS_DETAILS = 'fetch_photo_success_details';
