@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getPhotoList, getPhotoListDetail, getPhotoById} from '../actions';
+import {photoshootsDaily} from '../actions';
 
 class Home extends React.Component {
-    componentWillMount() {
-        this.props.getPhotoList(this.state.limit, this.state.offset);
-        this.props.getPhotoListDetail(this.state.limit, this.state.offset);
-        this.props.getPhotoById(this.state.limit);
-    }
-
     constructor(props) {
         super(props);
         this.state = {
             limit: 1,
-            offset: 0
+            offset: 0,
+            list: [],
+            detail: {}
         };
+        this.props.photoshootsDaily(1);
+        this.setState({list: this.props.photoshootsDaily(this.state.limit, this.state.offset)});
+        this.setState({detail: this.props.photoshootsDaily(1)});
     }
 
     render() {
+        console.log(this.state);
         return (
             <div>
             </div>
@@ -27,25 +27,27 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-    getPhotoList: PropTypes.func,
-    getPhotoListDetail: PropTypes.func,
-    getPhotoById: PropTypes.func,
-    photo: PropTypes.object,
-    photoList: PropTypes.array,
-    loading: PropTypes.bool,
+    photoshootsDaily: PropTypes.func,
+    shotsDailyList: PropTypes.any,
+    shotsDailyListError: PropTypes.object,
+    shotsDailyListLoading: PropTypes.bool,
+
+    shotsDailyDetail: PropTypes.object,
+    shotsDailyDetailError: PropTypes.object,
+    shotsDailyDetailLoading: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
-    loading: state.photoshotDaily.loading,
-    photo: state.photoshotDaily.photo,
-    photoList: state.photoshotDaily.photoList,
-    photoListDetail: state.photoshotDaily.photoListDetail,
-    photoDetail: state.photoshotDaily.photoListDetail,
+    shotsDailyList: state.photoshootsDaily.shotsDailyList,
+    shotsDailyListError: state.photoshootsDaily.shotsDailyListError,
+    shotsDailyListLoading: state.photoshootsDaily.shotsDailyListLoading,
+
+    shotsDailyDetail: state.photoshootsDaily.shotsDailyDetail,
+    shotsDailyDetailError: state.photoshootsDaily.shotsDailyDetailError,
+    shotsDailyDetailLoading: state.photoshootsDaily.shotsDailyDetailLoading,
 });
 const mapDispatchToProps = {
-    getPhotoList,
-    getPhotoListDetail,
-    getPhotoById
+    photoshootsDaily
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 

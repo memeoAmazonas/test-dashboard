@@ -2,80 +2,86 @@ import superagent from 'superagent';
 
 import {fetchPhotoList, fetchPhotoListDetails} from '../utils/urlApi';
 import {
-    FETCH_PHOTO_LIST,
-    FETCH_PHOTO_LIST_DETAILS,
-    FETCH_PHOTO_LIST_FAIL,
-    FETCH_PHOTO_LIST_SUCCESS,
-    FETCH_PHOTO_SUCCESS,
-    FETCH_PHOTO_LIST_SUCCESS_DETAILS
+    FETCH_PHOTO_SHOOTS_DAILY,
+    FETCH_PHOTO_SHOOTS_DAILY_FAIL,
+    FETCH_PHOTO_SHOOTS_DAILY_SUCCESS,
+    FETCH_PHOTO_SHOOTS_DAILY_DETAIL,
+    FETCH_PHOTO_SHOOTS_DAILY_FAIL_DETAIL,
+    FETCH_PHOTO_SHOOTS_DAILY_SUCCESS_DETAIL
 } from './types';
 
-export const getPhotoList = (limit, offset) => (dispatch) => {
-    dispatch({
-        type: FETCH_PHOTO_LIST
-    });
-    superagent
-        .get(fetchPhotoList)
-        .query({limit})
-        .query({offset})
-        .then(response => {
-            dispatch({
-                type: FETCH_PHOTO_LIST_SUCCESS,
-                payload: response.body
-            });
-        })
-        .catch(error => {
-            console.log(error);
-        });
+export const photoshootsDaily = (...params) => dispatch => {
+    if (params.length === 1) {
 
+        dispatch({type: FETCH_PHOTO_SHOOTS_DAILY_DETAIL});
+
+        superagent.get(`${fetchPhotoList}${params[0]}`)
+            .then(response => {
+                dispatch({
+                    type: FETCH_PHOTO_SHOOTS_DAILY_SUCCESS_DETAIL,
+                    payload: response.body
+                });
+            })
+            .catch(error => {
+                dispatch({
+                    type: FETCH_PHOTO_SHOOTS_DAILY_FAIL_DETAIL,
+                    payload: response.body
+                });
+            });
+    } else {
+        dispatch({type: FETCH_PHOTO_SHOOTS_DAILY});
+        superagent
+            .get(fetchPhotoList)
+            .query({limit: params[0]})
+            .query({offset: params[1]})
+            .then(response => {
+                dispatch({
+                    type: FETCH_PHOTO_SHOOTS_DAILY_SUCCESS,
+                    payload: response.body
+                });
+            })
+            .catch(error => {
+                dispatch({
+                    type: FETCH_PHOTO_SHOOTS_DAILY_FAIL,
+                    payload: response.body
+                });
+            });
+    }
 };
-export const getPhotoById = (id) => (dispatch) => {
-    superagent
-        .get(`${fetchPhotoList}${id}`)
-        .then(response => {
-            dispatch({
-                type: FETCH_PHOTO_SUCCESS,
-                payload: response.body
-            });
-        })
-        .catch(error => {
-            console.log(error);
-        });
 
-};
-export const getPhotoListDetail = (limit, offset) => (dispatch) => {
-    dispatch({
-        type: FETCH_PHOTO_LIST_DETAILS
-    });
-    superagent
-        .get(fetchPhotoListDetails)
-        .query({limit})
-        .query({offset})
-        .then(response => {
-            dispatch({
-                type: FETCH_PHOTO_LIST_SUCCESS_DETAILS,
-                payload: response.body
+export const photoshootsDetails = (...params) => dispatch => {
+    if (params.length === 1) {
+        dispatch({type: FETCH_PHOTO_SHOOTS_DETAIL});
+        superagent.get(`${fetchPhotoListDetails}${params[0]}`)
+            .then(response => {
+                dispatch({
+                    type: FETCH_PHOTO_SHOOTS_DETAIL_SUCCESS,
+                    payload: response.body
+                });
+            })
+            .catch(error => {
+                dispatch({
+                    type: FETCH_PHOTO_SHOOTS_DETAIL_FAIL,
+                    payload: response.body
+                });
             });
-        })
-        .catch(error => {
-            console.log(error);
-        });
-
-};
-export const getPhotoDetailById = (id) => (dispatch) => {
-    dispatch({
-        type: FETCH_PHOTO_DETAILS
-    });
-    superagent
-        .get(`${fetchPhotoListDetails}${id}`)
-        .then(response => {
-            dispatch({
-                type: FETCH_PHOTO_SUCCESS_DETAILS,
-                payload: response.body
+    } else {
+         dispatch({type: FETCH_PHOTO_SHOOTS_DETAIL_DETAIL});
+        superagent
+            .get(fetchPhotoListDetails)
+            .query({limit: params[0]})
+            .query({offset: params[1]})
+            .then(response => {
+                dispatch({
+                    type: FETCH_PHOTO_SHOOTS_DETAIL_SUCCESS_DETAIL,
+                    payload: response.body
+                });
+            })
+            .catch(error => {
+                dispatch({
+                    type: FETCH_PHOTO_SHOOTS_DETAIL_FAIL_DETAIL,
+                    payload: response.body
+                });
             });
-        })
-        .catch(error => {
-            console.log(error);
-        });
-
+    }
 };
