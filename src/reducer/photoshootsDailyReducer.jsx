@@ -9,7 +9,7 @@ import {
 
 const INITIAL_STATE = {
 
-    shotsDailyList: [],
+    shotsDailyList: {list: [], userData: []},
     shotsDailyListError: {},
     shotsDailyListLoading: false,
 
