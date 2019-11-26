@@ -10,6 +10,6 @@ const reducer = combineReducers({
   photoshootsDaily,
 });
 
-const store = createStore(reducer, applyMiddleware(thunk, promise, logger),);
+const store = createStore(reducer, applyMiddleware(thunk, promise),);
 
 export default store;
