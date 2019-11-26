@@ -1,5 +1,6 @@
 import superagent from 'superagent';
 
+import {dayOfWeek, column} from '../utils/data';
 import {fetchPhotoList, fetchPhotoListDetails} from '../utils/urlApi';
 import {
     FETCH_PHOTO_SHOOTS_DAILY,
@@ -37,7 +38,7 @@ export const photoshootsDaily = (...params) => dispatch => {
             .then(response => {
                 dispatch({
                     type: FETCH_PHOTO_SHOOTS_DAILY_SUCCESS,
-                    payload: response.body
+                    payload: setData(response.body)
                 });
             })
             .catch(error => {
@@ -66,7 +67,7 @@ export const photoshootsDetails = (...params) => dispatch => {
                 });
             });
     } else {
-         dispatch({type: FETCH_PHOTO_SHOOTS_DETAIL_DETAIL});
+        dispatch({type: FETCH_PHOTO_SHOOTS_DETAIL_DETAIL});
         superagent
             .get(fetchPhotoListDetails)
             .query({limit: params[0]})
@@ -84,4 +85,11 @@ export const photoshootsDetails = (...params) => dispatch => {
                 });
             });
     }
+};
+const setData = (list) => {
+    let arr = [];
+    let value = [];
+
+    column.forEach(it => arr.push(list.filter(item => item.type === it)));
+    return arr;
 };

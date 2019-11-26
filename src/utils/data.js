@@ -1,2 +1,2 @@
-export const dayOfWeek = ['','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-export const colum = ['Real State', 'Food', 'Events', 'Total'];
+export const column = ['Real Estate', 'Food', 'Event', 'Other'];
+export const dayOfWeek = ['','MONDAY','TUESDAY','WEDNESDAY','THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
