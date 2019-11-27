@@ -1,57 +1,43 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import {css} from '@emotion/core';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-// import {ClipLoader} from 'react-spinners';
-import { PulseLoader } from 'halogenium';
-import ClipLoader from 'react-spinners/ClipLoader';
+import {connect} from 'react-redux';
 
 import Table from '../components/table';
-import TableUser from '../components/tableUsers';
-import { dayOfWeek, column } from '../utils/data';
-import { photoshootsDaily, photoshootsDetails } from '../actions';
-
-const override = css`
-    display: block;
-    margin: 0 auto;
-    border-color: red;
-`;
+import Loading from '../components/loading';
+import {photoshootsDaily} from '../actions';
+import {headerPhoto, headerUSer} from '../utils/data';
 
 class Home extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            limit: 3000,
+            limit: 3500,
             offset: 0,
             list: [],
             detail: {}
         };
-        this.setData = this.setData.bind(this);
     }
 
     componentDidMount() {
         this.props.photoshootsDaily(this.state.limit, this.state.offset);
     }
 
-    setData() {
-
-        return this.props.shotsDailyList !== [] ? this.props.shotsDailyList.filter(item => item.day_of_the_week === 'FRIDAY') : [];
-    }
-
     render() {
         const data = this.props.shotsDailyList !== [] ? this.props.shotsDailyList : [];
         if (this.props.shotsDailyListLoading) {
-            return (<div className='sweet-loading'>
-                <PulseLoader color="#26A65B" size="16px" margin="4px" />
-            </div>)
+            return (<Loading/>);
         } else {
-            return (<div>
-                <Table columns={dayOfWeek} data={data.list}>
-                </Table>
-                <Table columns={dayOfWeek} data={data.userData}>
-                </Table>
-            </div>)
+            return (
+                <div className="container">
+                    <Table columns={headerPhoto} data={data.list}>
+                    </Table>
+                    <hr/>
+                    <Table columns={headerUSer} data={data.userData}>
+                    </Table>
+                </div>
+            );
 
         }
     }
@@ -80,7 +66,6 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = {
     photoshootsDaily,
-    photoshootsDetails
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
