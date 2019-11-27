@@ -13,8 +13,8 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            limit: 3500,
-            offset: 0,
+            limit: 1,
+            offset: 1,
             list: [],
             detail: {}
         };
@@ -31,10 +31,10 @@ class Home extends React.Component {
         } else {
             return (
                 <div className="container">
-                    <Table columns={headerPhoto} data={data.list}>
+                    <Table className="photo-table" columns={headerPhoto} data={data.list}>
                     </Table>
                     <hr/>
-                    <Table columns={headerUSer} data={data.userData}>
+                    <Table className="user-table" columns={headerUSer} data={data.userData}>
                     </Table>
                 </div>
             );
