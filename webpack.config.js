@@ -29,17 +29,17 @@ module.exports = {
           loader: "babel-loader"
         }
       },
-/*       {
+       {
         test: /\.html$/,
         use: [
           {
             loader: "html-loader"
           }
         ]
-      }, */
-      {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"]
+      }, 
+     {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
