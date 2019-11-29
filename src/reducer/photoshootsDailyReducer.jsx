@@ -24,6 +24,7 @@ export default (state = INITIAL_STATE, action) => {
         case FETCH_PHOTO_SHOOTS_DAILY:
             return {...state, shotsDailyListLoading: true};
         case FETCH_PHOTO_SHOOTS_DAILY_SUCCESS:
+            console.log(action.payload)
             return {...state, shotsDailyList: action.payload, shotsDailyListLoading: false};
         case FETCH_PHOTO_SHOOTS_DAILY_FAIL:
             return {...state, shotsDailyListLoading: false, shotsDailyListError: action.payload};
