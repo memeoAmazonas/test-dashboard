@@ -13,7 +13,7 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            limit: 1,
+            limit: 3000,
             offset: 1,
             list: [],
             detail: {}
