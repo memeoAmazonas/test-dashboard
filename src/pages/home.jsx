@@ -14,7 +14,7 @@ class Home extends React.Component {
         super(props);
         this.state = {
             limit: 3000,
-            offset: 1,
+            offset: 10,
             list: [],
             detail: {}
         };
